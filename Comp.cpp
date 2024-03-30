@@ -5,6 +5,7 @@
 #include <stack>
 #include "DOM.h"
 #include "Tree.h"
+#include "elements/Elements.h"
 
 int main()
 {
@@ -35,5 +36,15 @@ int main()
     lexTree.print();
     auto tags = lexTree.getTags();
     DOM::printVector(&tags);
+    if (DOM::compareVectors(output, tags))
+    {
+        std::cout << "Vectors are equal"
+                  << "\n";
+    }
+    else
+    {
+        std::cout << "Vectors are not equal\n";
+    }
+    std::cout << getOne() << "\n";
     return 0;
 }

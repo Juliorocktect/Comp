@@ -1,5 +1,6 @@
 #include "DOM.h"
 
+// TODO: rename method
 std::vector<std::string> DOM::generateAST(std::ifstream *input)
 {
     std::string line;
@@ -134,4 +135,18 @@ bool DOM::hasChildren(int position, std::vector<std::string> &tokens)
     std::string closingTag = tokens[position].substr(1, tokens[position].size());
     std::string close = "</" + closingTag;
     return tokens[position + 1].compare(close);
+}
+
+bool DOM::compareVectors(std::vector<std::string> &vecA, std::vector<std::string> &vecB)
+{
+    if (vecA.size() != vecB.size())
+        return 0;
+    for (int i = 0; i < vecA.size(); i++)
+    {
+        if (vecA[i].compare(vecB[i]) != 0)
+        {
+            return 0;
+        }
+    }
+    return 1;
 }

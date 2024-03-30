@@ -17,6 +17,7 @@ namespace DOM
     std::vector<std::string> getChildren(int position, std::vector<std::string> &tokens);
     bool hasChildren(int position, std::vector<std::string> &tokens);
     std::string getClosing(std::string tag);
+    bool compareVectors(std::vector<std::string> &vecA, std::vector<std::string> &vecB);
     template <typename T>
     void printVector(std::vector<T> *vec)
     {

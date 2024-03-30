@@ -5,3 +5,5 @@
 comp
 Makefile
 CMakeCache.txt
+*.a
+CMakeFiles
