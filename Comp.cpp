@@ -7,6 +7,11 @@
 #include "Tree.h"
 #include "elements/Elements.h"
 
+void printText(const char *text)
+{
+    std::cout << text << "\n";
+}
+
 int main()
 {
 
@@ -46,5 +51,14 @@ int main()
         std::cout << "Vectors are not equal\n";
     }
     std::cout << getOne() << "\n";
+
+    Elements::Button button("Hello");
+    button.action = &printText;
+    button.executeFunction();
+    auto map = DOM::getParameters(output);
+    for (auto itr = map.begin(); itr != map.end(); ++itr)
+    {
+        std::cout << itr->second << '\t' << itr->first << '\n';
+    }
     return 0;
 }

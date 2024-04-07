@@ -6,6 +6,7 @@
 #include <iostream>
 #include <stack>
 #include "Tree.h"
+#include <map>
 
 namespace DOM
 {
@@ -18,12 +19,15 @@ namespace DOM
     bool hasChildren(int position, std::vector<std::string> &tokens);
     std::string getClosing(std::string tag);
     bool compareVectors(std::vector<std::string> &vecA, std::vector<std::string> &vecB);
+    std::map<int, std::string> getParameters(std::vector<std::string> &tokens);
+    bool hasParameters(std::string token);
+
     template <typename T>
     void printVector(std::vector<T> *vec)
     {
         for (int i = 0; i < vec->size(); i++)
         {
-            std::cout << i << "     " << vec[0][i] << std::endl;
+            std::cout << i << "\t" << vec[0][i] << std::endl;
         }
     }
 };

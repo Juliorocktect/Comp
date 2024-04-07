@@ -64,7 +64,7 @@ NaryTree<std::string> DOM::produceLexTree(std::vector<std::string> &tokens)
 {
     NaryTree<std::string> tree;
     tree.insert("", "<root>", "");
-    for (int i = 0; i < tokens.size(); i++) // für jedes element die kinde bekommen
+    for (int i = 1; i < tokens.size(); i++) // für jedes element die kinde bekommen
     {
         if (hasChildren(i, tokens))
         {
@@ -96,12 +96,18 @@ bool DOM::isClosing(std::string tag)
 std::vector<std::string> DOM::getChildren(int position, std::vector<std::string> &tokens)
 {
     std::string closingTag = tokens[position].substr(1, tokens[position].size());
+    // remove parameters from element to get closing
     std::string close = "</" + closingTag;
     closingTag.~basic_string();
     std::vector<std::string> result;
     position++;
     for (int i = position; i < tokens.size() && tokens[i].compare(close); i++)
     {
+        if (hasParameters(tokens[i]))
+        {
+            close = close.substr(close.find(' '), close.size());
+            close = close.append(">");
+        }
         if (tokens[i].compare(close))
         {
             if (hasChildren(i, tokens))
@@ -149,4 +155,37 @@ bool DOM::compareVectors(std::vector<std::string> &vecA, std::vector<std::string
         }
     }
     return 1;
+}
+
+std::map<int, std::string> DOM::getParameters(std::vector<std::string> &tokens)
+{
+    std::map<int, std::string> map;
+    for (int i = 0; i < tokens.size(); i++)
+    {
+        std::string current;
+        if (tokens[i].find('/') == std::string::npos)
+        {
+            current = tokens[i];
+
+            // execute for every parameter
+            if (current.find('=') != std::string::npos)
+            {
+                current = current.erase(current.size() - 1, current.size());
+                // find method not working
+                // current = current.erase();
+                current = current.substr(current.find('=') + 1, current.size());
+
+                int j = 0;
+                current = current.substr(1, current.size());
+                current = current.erase(current.size() - 1, current.size());
+                map.insert({i, current});
+                // insert into map
+            }
+        }
+    }
+    return map;
+}
+bool DOM::hasParameters(std::string token)
+{
+    return (token.find('=') != std::string::npos);
 }
